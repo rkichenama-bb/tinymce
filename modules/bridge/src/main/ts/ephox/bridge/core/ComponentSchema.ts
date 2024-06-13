@@ -26,6 +26,7 @@ export const active = FieldSchema.defaultedBoolean('active', false);
 export const borderless = FieldSchema.defaultedBoolean('borderless', false);
 export const enabled = FieldSchema.defaultedBoolean('enabled', true);
 export const primary = FieldSchema.defaultedBoolean('primary', false);
+export const readonly = FieldSchema.defaultedBoolean('readonly', true);
 export const defaultedColumns = (num: number | 'auto'): FieldProcessor => FieldSchema.defaulted('columns', num);
 export const defaultedMeta = FieldSchema.defaulted('meta', {});
 export const defaultedOnAction = FieldSchema.defaultedFunction('onAction', Fun.noop);

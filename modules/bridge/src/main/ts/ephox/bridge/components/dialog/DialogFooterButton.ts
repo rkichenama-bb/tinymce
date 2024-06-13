@@ -49,6 +49,7 @@ interface BaseDialogFooterButton {
   enabled: boolean;
   icon: Optional<string>;
   buttonType: Optional<'primary' | 'secondary'>;
+  readonly: boolean;
 }
 
 export interface DialogFooterNormalButton extends BaseDialogFooterButton {
@@ -81,7 +82,8 @@ const baseFooterButtonFields = [
   ComponentSchema.primary,
   ComponentSchema.enabled,
   // this should be defaulted to `secondary` but the implementation needs to manage the deprecation
-  FieldSchema.optionStringEnum('buttonType', [ 'primary', 'secondary' ])
+  FieldSchema.optionStringEnum('buttonType', [ 'primary', 'secondary' ]),
+  ComponentSchema.readonly
 ];
 
 export const dialogFooterButtonFields = [

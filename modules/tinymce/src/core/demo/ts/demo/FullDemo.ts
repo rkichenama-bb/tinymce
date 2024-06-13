@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { Merger } from '@ephox/katamari';
+import { Merger, Strings } from '@ephox/katamari';
 import { SugarElement } from '@ephox/sugar';
 
 import { Editor, RawEditorOptions, TinyMCE } from 'tinymce/core/api/PublicApi';
@@ -113,6 +113,30 @@ export default (): void => {
       makeSidebar(ed, 'sidebar1', 'green', 200);
       makeSidebar(ed, 'sidebar2', 'green', 200);
       makeCodeView(ed);
+
+      ed.mode.register('comments', {
+        activate: () => {
+          console.log('blah');
+        },
+        deactivate: () => {
+          console.log('blah');
+        },
+        editorReadOnly: true
+      });
+      ed.ui.registry.addButton('comments', {
+        text: 'Comment',
+        readonly: false,
+        onAction: () => {
+          ed.mode.set('comments');
+        },
+        onSetup: (api) => {
+          api.setEnabled(true);
+          ed.on('SwitchMode', () => {
+            api.setEnabled(true);
+          });
+          return () => api.setEnabled(true);
+        }
+      });
     },
     plugins: [
       'autosave', 'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
@@ -122,8 +146,8 @@ export default (): void => {
     // rtl_ui: true,
     add_unload_trigger: false,
     autosave_ask_before_unload: false,
-    toolbar: 'undo redo sidebar1 fontsizeinput | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | align lineheight fontsize fontfamily blocks styles insertfile | styles | ' +
-    'bullist numlist outdent indent | link image | print preview media | forecolor backcolor emoticons table codesample code language | ltr rtl',
+    toolbar: 'comments forecolor backcolor undo redo sidebar1 fontsizeinput | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | align lineheight fontsize fontfamily blocks styles insertfile | styles | ' +
+    'bullist numlist outdent indent | link image | print preview media | emoticons table codesample code language | ltr rtl',
     contextmenu: 'link linkchecker image table lists configurepermanentpen',
 
     // Multiple toolbar array

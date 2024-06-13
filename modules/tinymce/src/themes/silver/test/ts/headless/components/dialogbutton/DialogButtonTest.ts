@@ -17,7 +17,8 @@ describe('headless.tinymce.themes.silver.components.dialogbutton.DialogButtonTes
         primary: true,
         buttonType: Optional.some('primary'),
         icon: Optional.none(),
-        borderless: false
+        borderless: false,
+        readonly: true
       }, store.adder('button.action'), TestProviders)
     ));
 
@@ -52,7 +53,8 @@ describe('headless.tinymce.themes.silver.components.dialogbutton.DialogButtonTes
         primary: false,
         buttonType: Optional.some('secondary'),
         icon: Optional.none(),
-        borderless: false
+        borderless: false,
+        readonly: true
       }, store.adder('button.action'), TestProviders)
     ));
 
@@ -79,7 +81,8 @@ describe('headless.tinymce.themes.silver.components.dialogbutton.DialogButtonTes
         primary: false,
         buttonType: Optional.some('toolbar'),
         icon: Optional.none(),
-        borderless: false
+        borderless: false,
+        readonly: true
       }, store.adder('button.action'), TestProviders)
     ));
 

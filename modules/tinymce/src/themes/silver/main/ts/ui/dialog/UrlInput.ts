@@ -240,7 +240,8 @@ export const renderUrlInput = (
     enabled: spec.enabled,
     primary: false,
     buttonType: Optional.none(),
-    borderless: true
+    borderless: true,
+    readonly: true
   }, (component) => AlloyTriggers.emit(component, browseUrlEvent), providersBackstage, [], [ 'tox-browse-url' ]));
 
   const controlHWrapper = (): AlloySpec => ({

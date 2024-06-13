@@ -49,8 +49,8 @@ export const renderCommonSpec = (
   const common = {
     buttonBehaviours: Behaviour.derive([
       DisablingConfigs.button(() => !spec.enabled || providersBackstage.isDisabled()),
-      ReadOnly.receivingConfig(),
       Tabstopping.config({}),
+      ...spec.readonly ? [ ReadOnly.receivingConfig() ] : [],
       ...tooltip.map(
         (t) => Tooltipping.config(
           providersBackstage.tooltips.getConfig({
