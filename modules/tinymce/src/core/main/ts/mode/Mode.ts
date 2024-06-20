@@ -17,28 +17,26 @@ const switchToMode = (editor: Editor, activeMode: Cell<string>, availableModes: 
     oldMode.deactivate();
   } catch (e) {
     // eslint-disable-next-line no-console
+    console.error(`problem while deactivating editor mode ${mode}:`, e);
+    return;
+  }
+
+  // if activate fails, hope nothing bad happened and abort
+  try {
+    newMode.activate();
+  } catch (e) {
+    // eslint-disable-next-line no-console
     console.error(`problem while deactivating editor mode ${activeMode.get()}:`, e);
     deactivate.set(false);
     return;
   }
-  if (deactivate.get()) {
-    // if activate fails, hope nothing bad happened and abort
-    try {
-      newMode.activate();
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(`problem while activating editor mode ${mode}:`, e);
-      return;
+
+  if (oldMode.editorReadOnly !== newMode.editorReadOnly) {
+    if (Type.isObject(newMode.editorReadOnly)) {
+      toggleReadOnly(editor, true);
+    } else {
+      toggleReadOnly(editor, newMode.editorReadOnly);
     }
-    if (oldMode.editorReadOnly !== newMode.editorReadOnly) {
-      if (Type.isObject(newMode.editorReadOnly)) {
-        toggleReadOnly(editor, true);
-      } else {
-        toggleReadOnly(editor, newMode.editorReadOnly);
-      }
-    }
-    activeMode.set(mode);
-    Events.fireSwitchMode(editor, mode);
   }
 };
 
@@ -63,18 +61,7 @@ const registerMode = (availableModes: Record<string, EditorModeApi>, mode: strin
 
   return {
     ...availableModes,
-    [mode]: {
-      ...api,
-      deactivate: () => {
-        // wrap custom deactivate APIs so they can't break the editor
-        try {
-          api.deactivate();
-        } catch (e) {
-          // eslint-disable-next-line no-console
-          console.error(`problem while deactivating editor mode ${mode}:`, e);
-        }
-      }
-    }
+    [mode]: api
   };
 };
 
