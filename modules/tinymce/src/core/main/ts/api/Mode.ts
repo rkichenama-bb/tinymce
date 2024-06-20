@@ -12,7 +12,6 @@ type EditorReadOnlyType = boolean | { uiEnabled: boolean; selectionEnabled: bool
  * @class tinymce.EditorMode
  */
 
-
 export interface EditorMode {
   allowSelectionInReadOnly: () => boolean;
   allowUiInReadOnly: () => boolean;

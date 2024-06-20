@@ -38,6 +38,7 @@ const switchToMode = (editor: Editor, activeMode: Cell<string>, availableModes: 
       toggleReadOnly(editor, newMode.editorReadOnly);
     }
   }
+  Events.fireSwitchMode(editor, mode);
 };
 
 const setMode = (editor: Editor, availableModes: Record<string, EditorModeApi>, activeMode: Cell<string>, mode: string): void => {

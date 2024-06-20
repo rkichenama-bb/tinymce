@@ -21,7 +21,6 @@ const broadcastReadonly = (uiRefs: ReadyUiReferences, readonly: boolean): void =
   const outerContainer = uiRefs.mainUi.outerContainer;
   const target = outerContainer.element;
 
-  // debugger
   const motherships = [ uiRefs.mainUi.mothership, ...uiRefs.uiMotherships ];
   if (readonly) {
     Arr.each(motherships, (m) => {
