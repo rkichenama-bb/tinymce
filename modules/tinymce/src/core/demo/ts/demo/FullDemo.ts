@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { Merger, Strings } from '@ephox/katamari';
+import { Fun, Merger, Strings } from '@ephox/katamari';
 import { SugarElement } from '@ephox/sugar';
 
 import { Editor, RawEditorOptions, TinyMCE } from 'tinymce/core/api/PublicApi';
@@ -7,6 +7,26 @@ import { Editor, RawEditorOptions, TinyMCE } from 'tinymce/core/api/PublicApi';
 declare let tinymce: TinyMCE;
 
 export default (): void => {
+  const makeLockedMode = (ed: Editor) => {
+    ed.mode.register('locked', {
+      editorReadOnly: true,
+      activate: Fun.noop,
+      deactivate: Fun.die('Should not deactivate locked mode')
+    });
+    ed.ui.registry.addToggleButton('lock', {
+      text: 'Lock Editor',
+      onAction: () => ed.mode.set('locked'),
+      onSetup: (api) => {
+        const toggleActive = () => {
+          api.setActive(ed.mode.get() === 'locked');
+          api.setEnabled(true);
+        };
+        toggleActive();
+        ed.on('SwitchMode', toggleActive);
+        return () => ed.off('SwitchMode', toggleActive);
+      }
+    });
+  };
 
   const makeSidebar = (ed: Editor, name: string, background: string, width: number) => {
     ed.ui.registry.addSidebar(name, {
@@ -110,6 +130,7 @@ export default (): void => {
     image_caption: true,
     theme: 'silver',
     setup: (ed) => {
+      makeLockedMode(ed);
       makeSidebar(ed, 'sidebar1', 'green', 200);
       makeSidebar(ed, 'sidebar2', 'green', 200);
       makeCodeView(ed);
@@ -146,8 +167,8 @@ export default (): void => {
     // rtl_ui: true,
     add_unload_trigger: false,
     autosave_ask_before_unload: false,
-    toolbar: 'comments forecolor backcolor undo redo sidebar1 fontsizeinput | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | align lineheight fontsize fontfamily blocks styles insertfile | styles | ' +
-    'bullist numlist outdent indent | link image | print preview media | emoticons table codesample code language | ltr rtl',
+    toolbar: 'lock | undo redo sidebar1 fontsizeinput | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | align lineheight fontsize fontfamily blocks styles insertfile | styles | ' +
+    'bullist numlist outdent indent | link image | print preview media | forecolor backcolor emoticons table codesample code language | ltr rtl',
     contextmenu: 'link linkchecker image table lists configurepermanentpen',
 
     // Multiple toolbar array
