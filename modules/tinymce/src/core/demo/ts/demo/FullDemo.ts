@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { Fun, Merger, Strings } from '@ephox/katamari';
+import { Fun } from '@ephox/katamari';
 import { SugarElement } from '@ephox/sugar';
 
 import { Editor, RawEditorOptions, TinyMCE } from 'tinymce/core/api/PublicApi';
@@ -10,7 +10,7 @@ export default (): void => {
   const makeLockedMode = (ed: Editor) => {
     ed.mode.register('locked', {
       editorReadOnly: true,
-      activate: Fun.noop,
+      activate: () => console.log('switched to locked mode'),
       deactivate: Fun.die('Should not deactivate locked mode')
     });
     ed.ui.registry.addToggleButton('lock', {
@@ -146,7 +146,6 @@ export default (): void => {
       });
       ed.ui.registry.addButton('comments', {
         text: 'Comment',
-        readonly: false,
         onAction: () => {
           ed.mode.set('comments');
         },
@@ -212,5 +211,5 @@ export default (): void => {
   };
 
   tinymce.init(settings);
-  tinymce.init(Merger.deepMerge(settings, { inline: true, selector: 'div.tinymce' }));
+  // tinymce.init(Merger.deepMerge(settings, { inline: true, selector: 'div.tinymce' }));
 };

@@ -9,7 +9,6 @@ export interface BaseToolbarButtonSpec<I extends BaseToolbarButtonInstanceApi> {
   icon?: string;
   text?: string;
   onSetup?: (api: I) => (api: I) => void;
-  readonly?: boolean;
 }
 
 export interface BaseToolbarButtonInstanceApi {
@@ -49,8 +48,7 @@ export const baseToolbarButtonFields = [
   ComponentSchema.optionalTooltip,
   ComponentSchema.optionalIcon,
   ComponentSchema.optionalText,
-  ComponentSchema.onSetup,
-  ComponentSchema.readonly
+  ComponentSchema.onSetup
 ];
 
 export const toolbarButtonSchema = StructureSchema.objOf([

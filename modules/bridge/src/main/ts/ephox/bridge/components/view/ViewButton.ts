@@ -46,7 +46,6 @@ interface BaseButton<Api extends ViewButtonApi> {
   buttonType: 'primary' | 'secondary';
   borderless: boolean;
   onAction: (api: Api) => void;
-  readonly: boolean;
 }
 
 export interface ViewNormalButton extends Omit<BaseButton<ViewButtonApi>, 'text'> {
@@ -70,7 +69,6 @@ export type ViewButton = ViewNormalButton | ViewToggleButton | ViewButtonsGroup;
 const baseButtonFields = [
   ComponentSchema.optionalText,
   ComponentSchema.optionalIcon,
-  ComponentSchema.readonly,
   FieldSchema.optionString('tooltip'),
   FieldSchema.defaultedStringEnum('buttonType', 'secondary', [ 'primary', 'secondary' ]),
   FieldSchema.defaultedBoolean('borderless', false),

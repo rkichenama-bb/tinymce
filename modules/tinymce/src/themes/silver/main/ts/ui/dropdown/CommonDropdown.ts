@@ -158,7 +158,7 @@ const renderCommonDropdown = <T>(
 
       dropdownBehaviours: Behaviour.derive([
         ...spec.dropdownBehaviours,
-        DisablingConfigs.button(() => spec.disabled || sharedBackstage.providers.isDisabled()),
+        DisablingConfigs.button(Fun.never/* () => spec.disabled || sharedBackstage.providers.isDisabled() */),
         ReadOnly.receivingConfig(),
         // INVESTIGATE (TINY-9012): There was a old comment here about something not quite working, and that
         // we can still get the button focused. It was probably related to Unselecting.

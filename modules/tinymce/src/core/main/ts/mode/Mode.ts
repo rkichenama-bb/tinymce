@@ -10,7 +10,6 @@ const defaultModes = [ 'design', 'readonly' ];
 const switchToMode = (editor: Editor, activeMode: Cell<string>, availableModes: Record<string, EditorModeApi>, mode: string) => {
   const oldMode = availableModes[activeMode.get()];
   const newMode = availableModes[mode];
-  const deactivate = Cell(true);
 
   // if deactivate fails, hope nothing bad happened and abort
   try {
@@ -27,7 +26,6 @@ const switchToMode = (editor: Editor, activeMode: Cell<string>, availableModes: 
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(`problem while deactivating editor mode ${activeMode.get()}:`, e);
-    deactivate.set(false);
     return;
   }
 

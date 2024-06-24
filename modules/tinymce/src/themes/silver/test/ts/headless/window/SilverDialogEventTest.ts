@@ -41,8 +41,7 @@ describe('headless.tinymce.themes.silver.window.SilverDialogEventTest', () => {
           primary: false,
           buttonType: Optional.some('secondary'),
           enabled: true,
-          icon: Optional.none(),
-          readonly: true
+          icon: Optional.none()
         },
         {
           type: 'submit',
@@ -52,8 +51,7 @@ describe('headless.tinymce.themes.silver.window.SilverDialogEventTest', () => {
           primary: true,
           buttonType: Optional.some('primary'),
           enabled: true,
-          icon: Optional.none(),
-          readonly: true
+          icon: Optional.none()
         }
       ],
       initialData: {},

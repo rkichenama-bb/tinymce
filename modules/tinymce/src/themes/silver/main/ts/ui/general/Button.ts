@@ -11,7 +11,6 @@ import { Dialog, Toolbar } from '@ephox/bridge';
 import { Fun, Merger, Optional, Type } from '@ephox/katamari';
 
 import { UiFactoryBackstage, UiFactoryBackstageProviders } from '../../backstage/Backstage';
-import * as ReadOnly from '../../ReadOnly';
 import { ComposingConfigs } from '../alien/ComposingConfigs';
 import { DisablingConfigs } from '../alien/DisablingConfigs';
 import { renderFormField } from '../alien/FieldLabeller';
@@ -50,7 +49,6 @@ export const renderCommonSpec = (
     buttonBehaviours: Behaviour.derive([
       DisablingConfigs.button(() => !spec.enabled || providersBackstage.isDisabled()),
       Tabstopping.config({}),
-      ...spec.readonly ? [ ReadOnly.receivingConfig() ] : [],
       ...tooltip.map(
         (t) => Tooltipping.config(
           providersBackstage.tooltips.getConfig({

@@ -113,10 +113,7 @@ const renderMoreToolbarCommon = (toolbarSpec: MoreDrawerToolbarSpec) => {
         tooltip: Optional.some('Reveal or hide additional toolbar items'),
         primary: false,
         buttonType: Optional.none(),
-        borderless: false,
-        // Overflow button will need to be enabled in readonly mode
-        // in case any overflow toolbar buttons are enabled in readonly mode
-        readonly: false
+        borderless: false
       }, Optional.none(), toolbarSpec.providers, [], 'overflow-button')
     },
     splitToolbarBehaviours: getToolbarBehaviours(toolbarSpec, modeName)
