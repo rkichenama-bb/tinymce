@@ -1,6 +1,8 @@
 //
 // Revision history
 //
+@revisionhistory-base-value: 12px;
+@revisionhistory-border-radius: 6px;
 @revisionhistory-background-color: contrast(@background-color, @background-color, lighten(@background-color, 5%));
 @revisionhistory-border-color: @border-color;
 @revisionhistory-text-color: @text-color;
@@ -12,8 +14,14 @@
 @revisionhistory-sidebar-title-height: 60px;
 @revisionhistory-sidebar-minwidth: 192px;
 @revisionhistory-text-lineheight: 24px;
-@revisionhistory-card-padding: @pad-sm;
+@revisionhistory-card-padding: @revisionhistory-base-value;
 @revisonhistory-box-shadow: none;
+
+.overflow-text() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+};
 
 .tox {
   .tox-revisionhistory__pane {
@@ -88,14 +96,12 @@
 
       .tox-revisionhistory__card {
         border: @revisionhistory-border;
-        border-radius: @control-border-radius;
+        border-radius: @revisionhistory-border-radius;
         color: @revisionhistory-text-color;
         cursor: pointer;
         font-size: @font-size-sm;
         margin-bottom: @revisionhistory-card-padding;
         padding: @revisionhistory-card-padding;
-        text-overflow: ellipsis;
-        text-wrap: nowrap;
         width: 100%;
 
         &:hover {
@@ -119,6 +125,21 @@
           box-shadow: @revisonhistory-box-shadow;
           color: @revisionhistory-card-active-text-color;
         }
+      }
+
+      .tox-revisionhistory__card > *:not(:last-child) {
+        margin-bottom: @revisionhistory-base-value;
+      }
+
+      .tox-revisionhistory__card-author {
+        align-items: center;
+        display: flex;
+        flex: 1 0 0;
+        gap: 8px;
+      }
+
+      .tox-revisionhistory__card-author-name {
+        .overflow-text();
       }
 
       .tox-revisionhistory__norevision {
